@@ -14,7 +14,7 @@
   <body>
     <div :style="[darkModeSet ? darkMode : '', base]">
       <header>
-        <h1>{{ name }}'s Home Page</h1>
+        <h1>{{ name }}'s Contact</h1>
         <nav>
           <ul>
             <li v-for="link in links" :key="link.id">
@@ -29,14 +29,7 @@
           <button @click="toggleMode">
             {{ darkModeSet ? '&#9788;' : ' &#9789;'}}
           </button>
-          <!-- BLOG SECTION -->
-          <section id="blog">
-            <article v-for="post in posts" :key="post.id">
-              <h3>{{post.title}}</h3>
-              <p v-html="post.body"></p>
-              <p class="read_more">Read More</p>
-            </article>
-          </section>
+          
         </div>
       </main>
     </div>
