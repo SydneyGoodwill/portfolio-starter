@@ -52,7 +52,7 @@ const links = [
   }
 ]
 
-Vue.createApp({
+const app = Vue.createApp({
   created() {
     this.getPosts();
   },
@@ -79,7 +79,9 @@ Vue.createApp({
       let response = await fetch('https://jsonplaceholder.typicode.com/posts');
       let data = await response.json();
       this.posts = data;
-    }
-  }
-}).mount("body");
+    },
+  },
+});
+  
+app.mount("body");
 
