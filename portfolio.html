@@ -13,16 +13,7 @@
   </head>
   <body>
     <div :style="[darkModeSet ? darkMode : '', base]">
-      <header>
-        <h1>{{ name }}'s Portfolio</h1>
-        <nav>
-          <ul>
-            <li v-for="link in links" :key="link.id">
-              <a :href="link.url">{{link.name}}</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <app-header></app-header>
       
       <main>
         <div class="blog_wrapper">

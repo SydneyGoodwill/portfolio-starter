@@ -38,17 +38,20 @@ const links = [
   {
     id: 1,
     name: "Home",
-    url: "index.html"
+    url: "index.html",
+    page: "Home Page"
   },
   {
     id: 2,
     name: "Portfolio",
-    url: "portfolio.html"
+    url: "portfolio.html",
+    page: "Portfolio Page"
   },
   {
     id: 3,
     name: "Contact Me",
-    url: "contact.html"
+    url: "contact.html",
+    page: "Contact Page"
   }
 ]
 
@@ -88,8 +91,19 @@ app.component("app-header", {
       links,
     }
   },
+  // <h1 v-for="link in links" :key="link.id">{{ name }}'s {{ link.page }}</h1>
+  // <h1 v-for="link in links">{{ name }}'s {{ link.page }}</h1>
+  // <h1 v-bind:key="page" v-if="links && links.length">{{ name }}'s {{ links[0].page }}</h1>
+
+// The one below just made the contact page the default and it always landed there:
+// <h1 v-bind:key="page" v-if="links.url === 'index.html' ">{{ name }}'s {{ links[0].page }}</h1>
+// <h1 v-bind:key="page" v-else-if="links.url === 'portfolio.html' ">{{ name }}'s {{ links[1].page }}</h1>
+// <h1 v-bind:key="page" v-else="links.url === 'contact.html' ">{{ name }}'s {{ links[2].page }}</h1>
+
   template: `<header>
-  <h1>{{ name }}'s Home Page</h1>
+  <h1 v-bind:key="id" v-if="links && links[0].id === 1">{{ name }}'s {{ links[0].page }}</h1>
+  <h1 v-bind:key="id" v-else-if="links && links[1].id === 2">{{ name }}'s {{ links[1].page }}</h1>
+  <h1 v-bind:key="id" v-else-if="links && links[2].id === 3">{{ name }}'s {{ links[2].page }}</h1>
   <nav>
     <ul>
       <li v-for="link in links" :key="link.id">
