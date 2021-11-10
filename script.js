@@ -58,8 +58,6 @@ const app = Vue.createApp({
   },
   data() {
     return {
-      name: "Sydney",
-      links,
       posts: [],
       darkModeSet: false,
       darkMode: {
@@ -84,7 +82,22 @@ const app = Vue.createApp({
 });
 
 app.component("app-header", {
-  template: '<h1>app header component</h1>'
+  data() {
+    return {
+      name: "Sydney",
+      links,
+    }
+  },
+  template: `<header>
+  <h1>{{ name }}'s Home Page</h1>
+  <nav>
+    <ul>
+      <li v-for="link in links" :key="link.id">
+        <a :href="link.url">{{link.name}}</a>
+      </li>
+    </ul>
+  </nav>
+</header>`
 });
   
 app.mount("body");
