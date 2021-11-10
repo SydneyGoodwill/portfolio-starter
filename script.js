@@ -82,6 +82,10 @@ const app = Vue.createApp({
     },
   },
 });
+
+app.component("app-header", {
+  template: '<h1>app header component</h1>'
+});
   
 app.mount("body");
 
