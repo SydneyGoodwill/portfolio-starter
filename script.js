@@ -113,6 +113,17 @@ app.component("app-header", {
   </nav>
 </header>`
 });
-  
+ 
+app.component("blog-post", {
+  props: ["post"],
+  template: `
+  <article>
+  <h3>{{post.title}}</h3>
+  <p v-html="post.body"></p>
+  <p class="read_more">Read More</p>
+</article>
+  `
+})
+
 app.mount("body");
 
