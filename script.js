@@ -55,7 +55,51 @@ const links = [
   }
 ]
 
+const appHeader = {
+  data() {
+  return {
+    name: "Sydney",
+    links,
+  }
+},
+// <h1 v-for="link in links" :key="link.id">{{ name }}'s {{ link.page }}</h1>
+// <h1 v-for="link in links">{{ name }}'s {{ link.page }}</h1>
+// <h1 v-bind:key="page" v-if="links && links.length">{{ name }}'s {{ links[0].page }}</h1>
+
+// The one below just made the contact page the default and it always landed there:
+// <h1 v-bind:key="page" v-if="links.url === 'index.html' ">{{ name }}'s {{ links[0].page }}</h1>
+// <h1 v-bind:key="page" v-else-if="links.url === 'portfolio.html' ">{{ name }}'s {{ links[1].page }}</h1>
+// <h1 v-bind:key="page" v-else="links.url === 'contact.html' ">{{ name }}'s {{ links[2].page }}</h1>
+
+template: `<header>
+<h1 v-bind:key="id" v-if="links && links[0].id === 1">{{ name }}'s {{ links[0].page }}</h1>
+<h1 v-bind:key="id" v-else-if="links && links[1].id === 2">{{ name }}'s {{ links[1].page }}</h1>
+<h1 v-bind:key="id" v-else-if="links && links[2].id === 3">{{ name }}'s {{ links[2].page }}</h1>
+<nav>
+  <ul>
+    <li v-for="link in links" :key="link.id">
+      <a :href="link.url">{{link.name}}</a>
+    </li>
+  </ul>
+</nav>
+</header>`}
+
+const blogPost = {
+  
+props: ["post"],
+template: `
+<article>
+<h3>{{post.title}}</h3>
+<p v-html="post.body"></p>
+<p class="read_more">Read More</p>
+</article>
+`}
+
 const app = Vue.createApp({
+  components: {
+    "blog-post": blogPost,
+    "app-header" : appHeader,
+  },
   created() {
     this.getPosts();
   },
@@ -84,13 +128,13 @@ const app = Vue.createApp({
   },
 });
 
-app.component("app-header", {
-  data() {
-    return {
-      name: "Sydney",
-      links,
-    }
-  },
+// app.component("app-header", {
+//   data() {
+//     return {
+//       name: "Sydney",
+//       links,
+//     }
+//   },
   // <h1 v-for="link in links" :key="link.id">{{ name }}'s {{ link.page }}</h1>
   // <h1 v-for="link in links">{{ name }}'s {{ link.page }}</h1>
   // <h1 v-bind:key="page" v-if="links && links.length">{{ name }}'s {{ links[0].page }}</h1>
@@ -100,30 +144,30 @@ app.component("app-header", {
 // <h1 v-bind:key="page" v-else-if="links.url === 'portfolio.html' ">{{ name }}'s {{ links[1].page }}</h1>
 // <h1 v-bind:key="page" v-else="links.url === 'contact.html' ">{{ name }}'s {{ links[2].page }}</h1>
 
-  template: `<header>
-  <h1 v-bind:key="id" v-if="links && links[0].id === 1">{{ name }}'s {{ links[0].page }}</h1>
-  <h1 v-bind:key="id" v-else-if="links && links[1].id === 2">{{ name }}'s {{ links[1].page }}</h1>
-  <h1 v-bind:key="id" v-else-if="links && links[2].id === 3">{{ name }}'s {{ links[2].page }}</h1>
-  <nav>
-    <ul>
-      <li v-for="link in links" :key="link.id">
-        <a :href="link.url">{{link.name}}</a>
-      </li>
-    </ul>
-  </nav>
-</header>`
-});
+//   template: `<header>
+//   <h1 v-bind:key="id" v-if="links && links[0].id === 1">{{ name }}'s {{ links[0].page }}</h1>
+//   <h1 v-bind:key="id" v-else-if="links && links[1].id === 2">{{ name }}'s {{ links[1].page }}</h1>
+//   <h1 v-bind:key="id" v-else-if="links && links[2].id === 3">{{ name }}'s {{ links[2].page }}</h1>
+//   <nav>
+//     <ul>
+//       <li v-for="link in links" :key="link.id">
+//         <a :href="link.url">{{link.name}}</a>
+//       </li>
+//     </ul>
+//   </nav>
+// </header>`
+// });
  
-app.component("blog-post", {
-  props: ["post"],
-  template: `
-  <article>
-  <h3>{{post.title}}</h3>
-  <p v-html="post.body"></p>
-  <p class="read_more">Read More</p>
-</article>
-  `
-})
+// app.component("blog-post", {
+//   props: ["post"],
+//   template: `
+//   <article>
+//   <h3>{{post.title}}</h3>
+//   <p v-html="post.body"></p>
+//   <p class="read_more">Read More</p>
+// </article>
+//   `
+// })
 
 app.mount("body");
 
